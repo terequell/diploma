@@ -1,0 +1,22 @@
+version: "3.2"
+
+services:
+  mysql:
+    image: "${DIPLOMA_MYSQL_IMAGE}"
+    container_name: "${DIPLOMA_MYSQL_CONTAINER}"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --sql_mode=""
+    ports: 
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      # - MYSQL_USER=diploma
+      # - MYSQL_PASSWORD=root
+      # - MYSQL_DATABASE=diplomadb
+
+    networks:
+      - diploma-network
+
+networks:
+  diploma-network:
+    external:
+      name: diploma-network

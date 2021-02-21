@@ -9,6 +9,7 @@ USER_NAME := $(shell whoami)
 
 DATABASE_NAME := diploma
 BACKUP_DB_NAME := diploma_db_backup
+BACKUP_DB_NAME_PATH := ./$(BACKUP_DB_NAME).sql
 
 start: create-network compose-start
 
@@ -18,16 +19,18 @@ compose-start:
 	docker-compose up -d
 
 stop:
-	docker stop $$(docker ps -aq)
+	@ docker stop $$(docker ps -aq)
 
 create-network:
 	- @ docker network create $(DIPLOMA_NETWORK)
 
 clean:
-	docker rm -f $$(docker ps -aq)
+	@ docker rm -f $$(docker ps -aq)
 	@ docker volume prune -f
 
 restart: compose-start
 
 create-dump:
-	docker exec $(DIPLOMA_MYSQL_CONTAINER) -uroot -proot $(DATABASE_NAME) | /bin/gzip > $(BACKUP_DB_NAME).sql.gz /bin/bash
+	echo 'Creating db dump...'
+	docker exec -it $(DIPLOMA_MYSQL_CONTAINER) sh -c "mysqldump -uroot -proot $(DATABASE_NAME) > $(BACKUP_DB_NAME).sql"
+	docker cp $(DIPLOMA_MYSQL_CONTAINER):$(BACKUP_DB_NAME).sql $(BACKUP_DB_NAME_PATH)

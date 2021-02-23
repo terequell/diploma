@@ -14,9 +14,4 @@ connection.connect(function (err) {
     }
 });
 
-// connection.query('SELECT * FROM table1', function (error, results, fields) {
-//     if (error) throw error;
-//     console.log('The solution is: ', results);
-// });
-
 module.exports = connection;

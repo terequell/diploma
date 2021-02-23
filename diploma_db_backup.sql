@@ -23,10 +23,9 @@ DROP TABLE IF EXISTS `table1`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table1` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` int DEFAULT NULL,
+  `name` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +34,7 @@ CREATE TABLE `table1` (
 
 LOCK TABLES `table1` WRITE;
 /*!40000 ALTER TABLE `table1` DISABLE KEYS */;
-INSERT INTO `table1` VALUES (1,'name1'),(2,'name4'),(3,'namr6t');
+INSERT INTO `table1` VALUES (1,'dfsfds'),(4,'das'),(2,'dfsasdfds'),(534,'fsdsdds'),(345,'sdfdsfds'),(12,'fsdssdfsdsddds'),(897,'fsdsdsdfsd23rds');
 /*!40000 ALTER TABLE `table1` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-21 20:47:34
+-- Dump completed on 2021-02-23 10:20:42

@@ -9,7 +9,8 @@ USER_NAME := $(shell whoami)
 
 DATABASE_NAME := diploma
 BACKUP_DB_NAME := diploma_db_backup
-BACKUP_DB_NAME_PATH := ./$(BACKUP_DB_NAME).sql
+BACKUP_DB_NAME_PATH := $(shell pwd)/$(BACKUP_DB_NAME).sql
+BACKUP_DB_NAME_TAR_GZ := $(shell pwd)/$(BACKUP_DB_NAME).tar.gz
 
 start: create-network compose-start
 
@@ -31,6 +32,19 @@ clean:
 restart: compose-start
 
 create-dump:
-	echo 'Creating db dump...'
-	docker exec -it $(DIPLOMA_MYSQL_CONTAINER) sh -c "mysqldump -uroot -proot $(DATABASE_NAME) > $(BACKUP_DB_NAME).sql"
-	docker cp $(DIPLOMA_MYSQL_CONTAINER):$(BACKUP_DB_NAME).sql $(BACKUP_DB_NAME_PATH)
+	@ echo 'Creating db dump... Previous dump will be removed.'
+	@ if [ -f $(BACKUP_DB_NAME_PATH) ]; then \
+		rm $(BACKUP_DB_NAME_PATH); \
+	fi
+	@ docker exec -it $(DIPLOMA_MYSQL_CONTAINER) sh -c "mysqldump -uroot -proot $(DATABASE_NAME) > $(BACKUP_DB_NAME).sql"
+	@ docker cp $(DIPLOMA_MYSQL_CONTAINER):$(BACKUP_DB_NAME).sql $(BACKUP_DB_NAME_PATH)
+	@ echo 'Dump created on current folder with name $(BACKUP_DB_NAME).sql!'
+
+apply-dump:
+	@ echo 'Applying db dump...'
+	@ if [ -f $(BACKUP_DB_NAME_PATH) ]; then \
+		docker exec -i $(DIPLOMA_MYSQL_CONTAINER) mysql -uroot -proot $(DATABASE_NAME) < $(BACKUP_DB_NAME).sql; \
+		echo 'Dump has been applied!'; \
+	else \
+		echo 'Dump wasnt found! Aborting.'; \
+	fi

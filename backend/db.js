@@ -12,6 +12,8 @@ connection.connect(function (err) {
     if (err) {
         throw new Error(err);
     }
+
+    console.log('Connected to database...');
 });
 
 module.exports = connection;

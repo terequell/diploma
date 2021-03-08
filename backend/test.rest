@@ -1,0 +1,9 @@
+POST http://localhost:3005/register
+content-type: application/json
+
+    {
+        "username": "Alexey",
+        "password": "lolw",
+        "email": "alexey-032@yandex.ru",
+        "difficulty_level": "1"
+    }

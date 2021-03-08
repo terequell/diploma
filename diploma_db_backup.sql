@@ -16,26 +16,109 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `table1`
+-- Table structure for table `lesson`
 --
 
-DROP TABLE IF EXISTS `table1`;
+DROP TABLE IF EXISTS `lesson`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `table1` (
-  `id` int DEFAULT NULL,
-  `name` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+CREATE TABLE `lesson` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int unsigned DEFAULT NULL,
+  `difficulty_level` int NOT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `lessonUser` (`userId`),
+  CONSTRAINT `lessonUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `table1`
+-- Dumping data for table `lesson`
 --
 
-LOCK TABLES `table1` WRITE;
-/*!40000 ALTER TABLE `table1` DISABLE KEYS */;
-INSERT INTO `table1` VALUES (1,'dfsfds'),(4,'das'),(2,'dfsasdfds'),(534,'fsdsdds'),(345,'sdfdsfds'),(12,'fsdssdfsdsddds'),(897,'fsdsdsdfsd23rds');
-/*!40000 ALTER TABLE `table1` ENABLE KEYS */;
+LOCK TABLES `lesson` WRITE;
+/*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lesson_word`
+--
+
+DROP TABLE IF EXISTS `lesson_word`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `lesson_word` (
+  `word_id` int unsigned NOT NULL,
+  `lesson_id` int unsigned NOT NULL,
+  PRIMARY KEY (`word_id`,`lesson_id`),
+  KEY `lessonWordLesson` (`lesson_id`),
+  CONSTRAINT `lessonWordLesson` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`),
+  CONSTRAINT `lessonWordWord` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lesson_word`
+--
+
+LOCK TABLES `lesson_word` WRITE;
+/*!40000 ALTER TABLE `lesson_word` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lesson_word` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(70) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `difficulty_level` int DEFAULT NULL,
+  `reg_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `word`
+--
+
+DROP TABLE IF EXISTS `word`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `word` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `russian_wording` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `english_wording` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture_link` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `difficulty_level` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `word`
+--
+
+LOCK TABLES `word` WRITE;
+/*!40000 ALTER TABLE `word` DISABLE KEYS */;
+/*!40000 ALTER TABLE `word` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +130,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-23 10:51:47
+-- Dump completed on 2021-03-07 22:23:42

@@ -6,16 +6,22 @@ services:
     image: "${DIPLOMA_MYSQL_IMAGE}"
     container_name: "${DIPLOMA_MYSQL_CONTAINER}"
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    expose:
+      - "3306"
     ports: 
       - "3307:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=diploma
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"-uroot", "-proot", "ping"]
+      timeout: 20s
       # - MYSQL_USER=diploma
       # - MYSQL_PASSWORD=root
-
-    # networks:
-    #   - diploma-network
+    networks:
+      diploma-network:
+        aliases:
+          - diploma-db.com
 
   frontend:
     image: "${DIPLOMA_FRONTEND_IMAGE}"
@@ -27,6 +33,20 @@ services:
       - "${DIPLOMA_FRONTEND_PATH}:/home/node/app"
     ports:
       - "3000:3000"
+
+  backend:
+    image: "${DIPLOMA_BACKEND_IMAGE}"
+    container_name: "${DIPLOMA_BACKEND_CONTAINER}"
+    working_dir: /home/src/app
+    stdin_open: true
+    volumes:
+      - "${DIPLOMA_BACKEND_PATH}:/home/src/app"
+    ports:
+      - "3005:3005"
+    networks:
+      diploma-network:
+        aliases:
+          - backend.com
 
 networks:
   diploma-network:

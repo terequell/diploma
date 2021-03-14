@@ -1,8 +1,8 @@
 const mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    port: '3307',
+    host: 'diploma-db.com',
+    port: '3306',
     user: 'root',
     password: 'root',
     database: 'diploma'

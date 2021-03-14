@@ -1,41 +1,67 @@
 import React, { memo } from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, Button } from 'antd';
+import { registerUser } from './providers';
 import styles from './Registration.module.scss';
+
+const warningMessages = {
+  username: 'Пожалуйста, придумайте никнейм!',
+  email: 'Пожалуйста, введите корректную почту!',
+  password: 'Пожалуйста, придумайте пароль!',
+};
+
+const labels = {
+  username: 'Никнейм',
+  email: 'E-mail',
+  password: 'Пароль',
+};
+
+type TypeSubmitInfo = {
+  username: string;
+  email: string;
+  password: string;
+};
 
 function Registration(): JSX.Element {
   const [form] = Form.useForm();
 
-  function handleSubmit(values: any): void {
-    console.log(values);
-  }
-
-  function handleReset(): void {
-    console.log('lolwo');
+  function handleSubmit(values: TypeSubmitInfo): void {
+    registerUser(values);
   }
 
   return (
     <div className={styles['registration__container']}>
-      <Form form={form} onFinish={handleSubmit}>
-        <Form.Item name="username" label="Никнейм" rules={[{ required: true }]}>
+      <Form labelCol={{ span: 4 }} form={form} onFinish={handleSubmit}>
+        <Form.Item
+          name="username"
+          label={labels.username}
+          rules={[{ required: true, message: warningMessages.username }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item
           name="email"
-          label="E-mail"
-          rules={[{ required: true, type: 'email' }]}
+          label={labels.email}
+          rules={[
+            {
+              required: true,
+              type: 'email',
+              message: warningMessages.email,
+            },
+          ]}
         >
           <Input />
         </Form.Item>
-        <Form.Item name="password" label="Пароль" rules={[{ required: true }]}>
-          <Input />
+        <Form.Item
+          name="password"
+          label={labels.password}
+          rules={[{ required: true, message: warningMessages.password }]}
+        >
+          <Input.Password />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Зарегистрироваться
-          </Button>
-          <Button htmlType="button" onClick={handleReset}>
-            Сброс
           </Button>
         </Form.Item>
       </Form>

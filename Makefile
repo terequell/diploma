@@ -4,8 +4,11 @@ DIPLOMA_MYSQL_IMAGE := mysql:latest
 DIPLOMA_MYSQL_CONTAINER := diploma-mysql
 DIPLOMA_FRONTEND_IMAGE := node:12
 DIPLOMA_FRONTEND_CONTAINER := diploma-frontend
+DIPLOMA_BACKEND_IMAGE := node:12
+DIPLOMA_BACKEND_CONTAINER := diploma-backend
 
 DIPLOMA_FRONTEND_PATH := /home/alexey/reps/diploma/frontend
+DIPLOMA_BACKEND_PATH := /home/alexey/reps/diploma/backend
 
 DIPLOMA_NETWORK := diploma-network
 
@@ -24,6 +27,9 @@ compose-start:
 	DIPLOMA_FRONTEND_IMAGE=$(DIPLOMA_FRONTEND_IMAGE) \
 	DIPLOMA_FRONTEND_CONTAINER=$(DIPLOMA_FRONTEND_CONTAINER) \
 	DIPLOMA_FRONTEND_PATH=$(DIPLOMA_FRONTEND_PATH) \
+	DIPLOMA_BACKEND_IMAGE=$(DIPLOMA_BACKEND_IMAGE) \
+	DIPLOMA_BACKEND_CONTAINER=$(DIPLOMA_BACKEND_CONTAINER) \
+	DIPLOMA_BACKEND_PATH=$(DIPLOMA_BACKEND_PATH) \
 	docker-compose up -d
 
 stop:
@@ -58,6 +64,10 @@ apply-dump:
 
 frontend-install:
 	docker exec -it $(DIPLOMA_FRONTEND_CONTAINER) npm i
-
 frontend-start:
 	docker exec -it $(DIPLOMA_FRONTEND_CONTAINER) npm run start
+
+backend-install:
+	docker exec -it $(DIPLOMA_BACKEND_CONTAINER) npm i
+backend-start:
+	docker exec -it $(DIPLOMA_BACKEND_CONTAINER) npm run start

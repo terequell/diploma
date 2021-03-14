@@ -1,6 +1,7 @@
 version: "3.2"
 
 services:
+
   mysql:
     image: "${DIPLOMA_MYSQL_IMAGE}"
     container_name: "${DIPLOMA_MYSQL_CONTAINER}"
@@ -13,8 +14,19 @@ services:
       # - MYSQL_USER=diploma
       # - MYSQL_PASSWORD=root
 
-    networks:
-      - diploma-network
+    # networks:
+    #   - diploma-network
+
+  frontend:
+    image: "${DIPLOMA_FRONTEND_IMAGE}"
+    container_name: "${DIPLOMA_FRONTEND_CONTAINER}"
+    user: "node"
+    working_dir: /home/node/app
+    stdin_open: true
+    volumes:
+      - "${DIPLOMA_FRONTEND_PATH}:/home/node/app"
+    ports:
+      - "3000:3000"
 
 networks:
   diploma-network:

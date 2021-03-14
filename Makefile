@@ -2,6 +2,10 @@
 
 DIPLOMA_MYSQL_IMAGE := mysql:latest
 DIPLOMA_MYSQL_CONTAINER := diploma-mysql
+DIPLOMA_FRONTEND_IMAGE := node:12
+DIPLOMA_FRONTEND_CONTAINER := diploma-frontend
+
+DIPLOMA_FRONTEND_PATH := /home/alexey/reps/diploma/frontend
 
 DIPLOMA_NETWORK := diploma-network
 
@@ -17,6 +21,9 @@ start: create-network compose-start
 compose-start:
 	DIPLOMA_MYSQL_IMAGE=$(DIPLOMA_MYSQL_IMAGE) \
 	DIPLOMA_MYSQL_CONTAINER=$(DIPLOMA_MYSQL_CONTAINER) \
+	DIPLOMA_FRONTEND_IMAGE=$(DIPLOMA_FRONTEND_IMAGE) \
+	DIPLOMA_FRONTEND_CONTAINER=$(DIPLOMA_FRONTEND_CONTAINER) \
+	DIPLOMA_FRONTEND_PATH=$(DIPLOMA_FRONTEND_PATH) \
 	docker-compose up -d
 
 stop:
@@ -48,3 +55,9 @@ apply-dump:
 	else \
 		echo 'Dump wasnt found! Aborting.'; \
 	fi
+
+frontend-install:
+	docker exec -it $(DIPLOMA_FRONTEND_CONTAINER) npm i
+
+frontend-start:
+	docker exec -it $(DIPLOMA_FRONTEND_CONTAINER) npm run start

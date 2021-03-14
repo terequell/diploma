@@ -1,0 +1,4 @@
+{
+    "eslint.lintTask.options": "./.eslintrc.js",
+    "prettier.configPath": "./.prettierrc.js"
+}

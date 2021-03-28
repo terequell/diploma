@@ -69,6 +69,32 @@ LOCK TABLES `lesson_word` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `refresh_tokens`
+--
+
+DROP TABLE IF EXISTS `refresh_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `refresh_tokens` (
+  `token` varchar(170) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `valid_until` timestamp NULL DEFAULT ((now() + interval 1 week)),
+  `user_id` int unsigned DEFAULT NULL,
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `refresh_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refresh_tokens`
+--
+
+LOCK TABLES `refresh_tokens` WRITE;
+/*!40000 ALTER TABLE `refresh_tokens` DISABLE KEYS */;
+INSERT INTO `refresh_tokens` VALUES ('fgfsdfgsdfgsd','2021-04-04 17:25:23',1);
+/*!40000 ALTER TABLE `refresh_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -77,13 +103,13 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(70) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `difficulty_level` int DEFAULT NULL,
   `reg_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,6 +118,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'terequell','12345','fsdfds@gdfgffd.ri',NULL,'2021-03-28 17:24:50');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,9 +131,9 @@ DROP TABLE IF EXISTS `word`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `word` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `russian_wording` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `english_wording` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `picture_link` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `russian_wording` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `english_wording` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture_link` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `difficulty_level` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -130,4 +157,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-07 22:23:42
+-- Dump completed on 2021-03-28 17:26:37

@@ -62,6 +62,9 @@ apply-dump:
 		echo 'Dump wasnt found! Aborting.'; \
 	fi
 
+frontend: frontend-install frontend-start
+backend: backend-install backend-start
+
 frontend-install:
 	docker exec -it $(DIPLOMA_FRONTEND_CONTAINER) npm i
 frontend-start:

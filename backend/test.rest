@@ -4,7 +4,7 @@ content-type: application/json
     {
         "username": "Alexey",
         "password": "lolw",
-        "email": "alexey-032@yandex.ru",
+        "email": "alexey-032@yandex.rudd",
         "difficulty_level": "1"
     }
 
@@ -15,5 +15,5 @@ content-type: application/json
 
     {
         "email": "alexey-032@yandex.ru",
-        "password": "lolw"
+        "password": "lolwdd"
     }

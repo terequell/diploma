@@ -1,12 +1,12 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import router from './router.js';
 
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 
-const authRouter = require('./routes/auth');
-
-app.use('/auth', authRouter);
+app.use('/', router);
 
 app.listen(3005, () => console.log('Server is running on port 3005'));

@@ -14,6 +14,17 @@ POST http://localhost:3005/auth/login
 content-type: application/json
 
     {
-        "email": "alexey-032@yandex.ru",
-        "password": "lolwdd"
+        "email": "alexey-032@yandex.rudd",
+        "password": "lolw"
+    }
+
+###
+
+POST http://localhost:3005/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYxODU3ODM2MiwiZXhwIjoxNjE4NTg1NTYyfQ.bO2D7Rljl9lpfVcWLwty_1Syp_KfQq2w4x3BWjekdE4
+content-type: application/json
+
+    {
+        "email": "alexey-032@yandex.rudd",
+        "password": "lolw"
     }

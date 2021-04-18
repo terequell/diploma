@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import AuthService from '../services/AuthService.js';
 import { checkRegisterFieldsValid } from '../helpers/auth.js';
+import { STATUS_CODES } from '../constants/statusCodes.js';
 
 const SALT_ROUNDS = 10;
 
@@ -12,7 +13,7 @@ class AuthController {
             const isUserAlreadyExists = Boolean(await AuthService.getUserByEmail(email));
 
             if (isUserAlreadyExists) {
-                response.status(400).send('This user already exists.');
+                response.status(200).json({ statusCode: STATUS_CODES.USER_ALREADY_EXISTS });
                 return;
             }
 
@@ -28,7 +29,11 @@ class AuthController {
     
                 await AuthService.registerUser(newUser);
 
-                response.status(200).send('You has beed registrated!');
+                response.status(200).json({ 
+                    user: { username, email, difficulty_level }, 
+                    message: 'User succesfully registered!',
+                    statusCode: STATUS_CODES.OK,
+                });
             } else {
                 response.status(400).send('Some of fields is invalid. Check them please.');
             }
@@ -44,10 +49,24 @@ class AuthController {
             const isPasswordValid = await AuthService.checkPasswordValidity(email, password);
 
             if (isPasswordValid) {
-                response.status(200).send('You has been logged in!');
+                const tokens = await AuthService.generateAndSaveTokensForLogin(email);
+
+                response.status(200).json({ statusCode: STATUS_CODES.OK, tokens });
             } else {
-                response.status(401).send('Invalid email or password!');
+                response.status(200).json({ statusCode: STATUS_CODES.INVALID_PASSWORD });
             }
+        } catch (error) {
+            response.status(500).send('Server error!');
+        }
+    }
+
+    async logout(request, response) {
+        try {
+            const { userId } = request;
+
+            await AuthService.deleteUserRefreshTokens(userId);
+
+            response.status(200).send('You has been logged out.');
         } catch (error) {
             response.status(500).send('Server error!');
         }

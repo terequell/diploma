@@ -29,6 +29,8 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 'off',
     'prettier/prettier': ['error', prettierConfig],
     "@typescript-eslint/camelcase": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   },
   overrides: [
     {

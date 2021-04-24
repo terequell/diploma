@@ -1,7 +1,7 @@
 import { TypeRegistrationFormData } from 'components/Registration';
 import { TypeLoginForm } from 'components/Login';
-import { STATUS_CODES } from 'constants/network';
-import api from 'API';
+import axios from 'helpers/axios';
+import { StatusCode, API_URL, RequestStatus, Tokens } from 'constants/network';
 
 export type TypeRegisterRequestResult = {
   success: boolean;
@@ -14,28 +14,28 @@ export type TypeRegisterRequestResult = {
 };
 
 const statusCodeWording = {
-  [STATUS_CODES.USER_ALREADY_EXISTS]:
+  [StatusCode.USER_ALREADY_EXISTS]:
     'Такой пользователь уже зарегистрирован! Пожалуйста, войдите с помощью email.',
-  [STATUS_CODES.INVALID_PASSWORD]: 'Неверный логин или пароль.',
+  [StatusCode.INVALID_PASSWORD]: 'Неверный логин или пароль.',
 };
 
 export async function register(
   data: TypeRegistrationFormData,
 ): Promise<TypeRegisterRequestResult> {
   try {
-    const response = await api.post('auth/register', data);
+    const response = await axios.post('auth/register', data);
 
-    if (response.data.statusCode === STATUS_CODES.OK) {
+    if (response.data.statusCode === StatusCode.OK) {
       return {
         success: true,
         userInfo: { ...response.data.user },
       };
     }
 
-    if (response.data.statusCode === STATUS_CODES.USER_ALREADY_EXISTS) {
+    if (response.data.statusCode === StatusCode.USER_ALREADY_EXISTS) {
       return {
         success: false,
-        errorWording: statusCodeWording[STATUS_CODES.USER_ALREADY_EXISTS],
+        errorWording: statusCodeWording[StatusCode.USER_ALREADY_EXISTS],
       };
     }
 
@@ -61,10 +61,10 @@ export async function login(
   data: TypeLoginForm,
 ): Promise<TypeLoginRequestResult> {
   try {
-    const response = await api.post('auth/login', data);
+    const response = await axios.post('auth/login', data);
     console.log(response);
 
-    if (response.data.statusCode === STATUS_CODES.OK) {
+    if (response.data.statusCode === StatusCode.OK) {
       const { accessToken, refreshToken } = response.data.tokens;
 
       return {
@@ -74,10 +74,10 @@ export async function login(
       };
     }
 
-    if (response.data.statusCode === STATUS_CODES.INVALID_PASSWORD) {
+    if (response.data.statusCode === StatusCode.INVALID_PASSWORD) {
       return {
         success: false,
-        errorWording: statusCodeWording[STATUS_CODES.INVALID_PASSWORD],
+        errorWording: statusCodeWording[StatusCode.INVALID_PASSWORD],
       };
     }
 

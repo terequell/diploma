@@ -52,11 +52,8 @@ class AuthService {
         }
     }
 
-    async getUserRefreshToken(email) {
+    async getUserRefreshToken(userId) {
         try {
-            const userInfo = await this.getUserByEmail(email);
-            const userId = userInfo.id;
-
             const result = await pool.query(`SELECT * from refresh_tokens where user_id = ? ;`, [userId]);
             const data = result[0];
 
@@ -83,22 +80,19 @@ class AuthService {
         }
     }
 
-    async generateAndSaveTokensForLogin(email) {
+    async generateAndSaveTokens(userId) {
         try {
-            const userInfo = await this.getUserByEmail(email);
-            const userId = userInfo.id;
-
-            const currentRefreshToken = await this.getUserRefreshToken(email);
+            const currentRefreshToken = await this.getUserRefreshToken(userId);
 
             if (currentRefreshToken) {
-                const currentRefreshTokenValid = this.checkIfUserHasValidRefreshToken(currentRefreshToken);
+                const currentRefreshTokenValid = this.checkIsTokenValid(currentRefreshToken);
 
                 if (currentRefreshTokenValid) {
                     const accessToken = this.generateAccessToken(userId);
 
                     return {
                         accessToken, 
-                        currentRefreshToken
+                        refreshToken: currentRefreshToken
                     }
                 }
             }
@@ -128,7 +122,7 @@ class AuthService {
         return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
     }
 
-    checkIfUserHasValidRefreshToken(token) {
+    checkIsTokenValid(token) {
         let currentRefreshTokenValid = false;
  
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, data) => {
@@ -140,6 +134,18 @@ class AuthService {
         });
 
         return currentRefreshTokenValid;
+    }
+
+    getUserIdFromToken(token) {
+        let userId = null;
+
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, data) => {
+            if (!error) {
+                userId = data.userId;
+            }
+        });
+
+        return userId;
     }
 }
 

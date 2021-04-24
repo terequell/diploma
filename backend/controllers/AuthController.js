@@ -49,7 +49,10 @@ class AuthController {
             const isPasswordValid = await AuthService.checkPasswordValidity(email, password);
 
             if (isPasswordValid) {
-                const tokens = await AuthService.generateAndSaveTokensForLogin(email);
+                const userInfo = await AuthService.getUserByEmail(email);
+                const userId = userInfo.id;
+
+                const tokens = await AuthService.generateAndSaveTokens(userId);
 
                 response.status(200).json({ statusCode: STATUS_CODES.OK, tokens });
             } else {
@@ -67,6 +70,25 @@ class AuthController {
             await AuthService.deleteUserRefreshTokens(userId);
 
             response.status(200).send('You has been logged out.');
+        } catch (error) {
+            response.status(500).send('Server error!');
+        }
+    }
+
+    async refreshTokens(request, response) {
+        try {
+            const { refreshToken } = response.data;
+
+            const isRefreshTokenValid = AuthService.checkIsTokenValid(refreshToken);
+
+            if (isRefreshTokenValid) {
+                const userId = AuthService.getUserIdFromToken(refreshToken);
+                const tokens = await AuthService.generateAndSaveTokens(userId);
+
+                response.status(200).json({ statusCode: STATUS_CODES.OK, tokens });
+            }
+
+            response.status(403).send('Invalid refresh token!');
         } catch (error) {
             response.status(500).send('Server error!');
         }

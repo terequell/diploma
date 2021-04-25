@@ -20,11 +20,6 @@ content-type: application/json
 
 ###
 
-POST http://localhost:3005/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYxODU3ODM2MiwiZXhwIjoxNjE4NTg1NTYyfQ.bO2D7Rljl9lpfVcWLwty_1Syp_KfQq2w4x3BWjekdE4
+GET http://localhost:3005/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTYxOTMzODIwNiwiZXhwIjoxNjE5MzQ1NDA2fQ.EqwHLqYoh5163tPJZcgT8Z5NFPQBsJJfrFI95JOfxKE
 content-type: application/json
-
-    {
-        "email": "alexey-032@yandex.rudd",
-        "password": "lolw"
-    }

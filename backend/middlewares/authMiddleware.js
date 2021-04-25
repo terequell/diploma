@@ -24,7 +24,7 @@ export function authMiddleware(request, response, next) {
 
             request.userId = data.userId;
             next();
-        })
+        });
     } catch (error) {
         console.error(error);
         response.status(500).send('Server error!');

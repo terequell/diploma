@@ -69,7 +69,7 @@ class AuthController {
 
             await AuthService.deleteUserRefreshTokens(userId);
 
-            response.status(200).send('You has been logged out.');
+            response.status(200).json({ statusCode: STATUS_CODES.OK });
         } catch (error) {
             response.status(500).send('Server error!');
         }

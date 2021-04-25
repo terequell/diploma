@@ -1,18 +1,23 @@
 import React, { memo } from 'react';
+import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Form, Input, Button, notification } from 'antd';
 import BackToHomeButton from 'components/BackToHomeButton';
 import { fieldsTranslations } from 'translations/fields';
-import { login } from 'data/userProvider';
+import { login } from 'data/authProvider';
 import { TypeLoginForm } from './types';
 import styles from './Login.module.scss';
 
 function Login(): JSX.Element {
   const [form] = Form.useForm();
+  const history = useHistory();
 
   async function handleSubmit(formData: TypeLoginForm): Promise<void> {
-    console.log(formData);
-    await login(formData);
+    const { success } = await login(formData);
+
+    if (success) {
+      history.push('/home');
+    }
   }
 
   return (

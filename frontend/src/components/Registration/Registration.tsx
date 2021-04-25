@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, Button, notification } from 'antd';
 import BackToHomeButton from 'components/BackToHomeButton';
-import { register, TypeRegisterRequestResult } from 'data/userProvider';
+import { register, TypeRegisterRequestResult } from 'data/authProvider';
 import { fieldsTranslations } from 'translations/fields';
 import { useHistory } from 'react-router-dom';
 import { TypeRegistrationFormData } from './types';

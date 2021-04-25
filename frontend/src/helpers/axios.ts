@@ -23,7 +23,7 @@ function saveTokens({ accessToken, refreshToken }: any): void {
   }
 }
 
-function destroyTokens(): void {
+export function destroyTokens(): void {
   localStorage.removeItem(Tokens.ACCESS_TOKEN);
   localStorage.removeItem(Tokens.REFRESH_TOKEN);
 }
@@ -69,16 +69,19 @@ function refreshSession(axiosInstance: AxiosInstance, sourceConfig: any): any {
       refreshToken: getToken(Tokens.REFRESH_TOKEN),
     })
     .then((response) => {
-      const { accessToken, refreshToken } = response.data;
+      const { accessToken, refreshToken } = response.data?.tokens;
 
       saveTokens({ accessToken, refreshToken });
       sourceConfig.headers.Authorization = getAccessToken();
 
       return axios(sourceConfig);
     })
-    .catch((error) => {
+    .catch(async (error) => {
+      await axios.post(`${API_URL}/auth/logout`);
+
       destroyTokens();
-      window.location.href = '/access/logout';
+
+      window.location.href = '/login';
 
       return Promise.reject(error);
     })

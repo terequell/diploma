@@ -1,20 +1,34 @@
-import React, { memo } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Button } from 'antd';
-import 'antd/dist/antd.css';
-import styles from './Home.module.scss';
+import React, { memo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { StateType } from 'redux/store';
+import { getUserInfo } from 'redux/user';
+import Loader from 'components/Loader';
 
 function Home(): JSX.Element {
-  return (
-    <div className={styles['home__container']}>
-      <Button className={styles['home__button']}>
-        <NavLink to="/login">Войти</NavLink>
-      </Button>
-      <Button className={styles['home__button']} type="primary">
-        <NavLink to="/register">Зарегистрироваться</NavLink>
-      </Button>
-    </div>
-  );
+  const dispatch = useDispatch();
+  const currentState = useSelector((state: StateType) => {
+    const { username, email, difficulty_level, dateRegistration } = state.user;
+
+    return {
+      username,
+      email,
+      difficulty_level,
+      dateRegistration,
+    };
+  });
+  const isLoading = useSelector((state: StateType) => state.user.isLoading);
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, []);
+
+  console.log(currentState);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return <div>Home container</div>;
 }
 
 export default memo(Home);

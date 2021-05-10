@@ -3,7 +3,7 @@ import pool from '../dbConnection.js';
 class UserService {
     async getUserDetails(userId) {
         try {
-            const result = await pool.query(`SELECT * from user where id = ? ;`, [userId]);
+            const result = await pool.query(`SELECT * FROM user WHERE id = ? ;`, [userId]);
             const data = result[0];
 
             if (data && data[0]) {

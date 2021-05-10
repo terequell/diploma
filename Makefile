@@ -45,22 +45,22 @@ clean:
 restart: compose-start
 
 create-dump:
-	@ echo 'Creating db dump... Previous dump will be removed.'
+	@ echo 'Creating db dump... The previous dump will be removed.'
 	@ if [ -f $(BACKUP_DB_NAME_LOCAL_PATH) ]; then \
 		rm $(BACKUP_DB_NAME_LOCAL_PATH); \
 	fi
 	@ docker exec -it $(DIPLOMA_MYSQL_CONTAINER) sh -c "mysqldump -uroot -proot $(DATABASE_NAME) > $(BACKUP_DB_NAME)"
 	@ docker cp $(DIPLOMA_MYSQL_CONTAINER):$(BACKUP_DB_NAME) $(BACKUP_DB_NAME_LOCAL_PATH)
-	@ echo 'Dump created on current folder with name $(BACKUP_DB_NAME)!'
+	@ scp $(BACKUP_DB_NAME_LOCAL_PATH) root@82.148.30.50:$(BACKUP_DB_NAME)
+	@ rm $(BACKUP_DB_NAME)
+	@ echo 'Dump created on current folder with name $(BACKUP_DB_NAME) and loaded to server!'
 
 apply-dump:
 	@ echo 'Applying db dump...'
-	@ if [ -f $(BACKUP_DB_NAME_LOCAL_PATH) ]; then \
-		docker exec -i $(DIPLOMA_MYSQL_CONTAINER) mysql -uroot -proot $(DATABASE_NAME) < $(BACKUP_DB_NAME); \
-		echo 'Dump has been applied!'; \
-	else \
-		echo 'Dump wasnt found! Aborting.'; \
-	fi
+	@ scp root@82.148.30.50:$(BACKUP_DB_NAME) $(BACKUP_DB_NAME)
+	@ docker exec -i $(DIPLOMA_MYSQL_CONTAINER) mysql -uroot -proot $(DATABASE_NAME) < $(BACKUP_DB_NAME);
+	@ rm $(BACKUP_DB_NAME)
+	@ echo 'Dump has been applied!';
 
 frontend: frontend-install frontend-start
 backend: backend-install backend-start

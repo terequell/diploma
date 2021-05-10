@@ -3,4 +3,5 @@ diploma_db_backup.sql
 /backend/node_modules
 /backend/.env
 /backend/test.rest
+/backend/words.csv
 /frontend/node_modules

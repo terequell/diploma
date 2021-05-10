@@ -1,11 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { ROUTES } from '../constants/routes.js';
+import { ROUTES_DONT_NEED_AUTH } from '../constants/routes.js';
 
 export function authMiddleware(request, response, next) {
-    if (request.originalUrl === ROUTES.LOGIN_ROUTE || 
-        request.originalUrl === ROUTES.REGISTER_ROUTE ||
-        request.originalUrl === ROUTES.REFRESH_TOKENS_ROUTE
-    ) {
+    if (ROUTES_DONT_NEED_AUTH.includes(request.originalUrl)) {
         return next();
     }
 

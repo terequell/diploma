@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Form, Input, Button, notification } from 'antd';
+import { Form, Input, Button } from 'antd';
 import BackToHomeButton from 'components/BackToHomeButton';
 import { fieldsTranslations } from 'translations/fields';
 import { login } from 'data/authProvider';

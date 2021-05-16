@@ -64,7 +64,7 @@ function userReducer(
       return {
         ...state,
         dateRegistration: action.userInfo.dateRegistration,
-        email: action.userInfo.dateRegistration,
+        email: action.userInfo.email,
         difficulty_level: action.userInfo.difficulty_level,
         username: action.userInfo.username,
       };

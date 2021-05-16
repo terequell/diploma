@@ -15,6 +15,7 @@
     "@types/react-router-dom": "^5.1.7",
     "antd": "^4.13.1",
     "axios": "^0.21.1",
+    "lodash": "^4.17.21",
     "node-sass": "^5.0.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
@@ -48,7 +49,8 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.2.1",
+    "@types/lodash": "^4.14.169",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
     "eslint": "^7.22.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-config-prettier": "^6.7.0",
@@ -58,6 +60,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
-    "@typescript-eslint/eslint-plugin": "^4.17.0"
+    "prettier": "^2.2.1"
   }
 }

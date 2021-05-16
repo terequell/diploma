@@ -1,0 +1,11 @@
+.userinfo {
+    background-color: rgb(168, 160, 160);
+    padding: 20px;
+    min-width: 500px;
+    height: 400px;
+
+    &__title {
+        color: white;
+        text-align: center;
+    }
+}

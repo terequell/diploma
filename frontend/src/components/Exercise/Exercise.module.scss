@@ -1,0 +1,11 @@
+.exercise {
+    height: 100%;
+
+    &__answers {
+        height: 400px;
+    }
+}
+
+[class~='ant-col'] > div {
+    height: 150px;
+}

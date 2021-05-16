@@ -77,11 +77,14 @@ function refreshSession(axiosInstance: AxiosInstance, sourceConfig: any): any {
       return axios(sourceConfig);
     })
     .catch(async (error) => {
-      await axios.post(`${API_URL}/auth/logout`);
-
-      destroyTokens();
-
-      window.location.href = '/login';
+      try {
+        await axios.post(`${API_URL}/auth/logout`);
+        destroyTokens();
+        window.location.href = '/login';
+      } catch (_) {
+        destroyTokens();
+        window.location.href = '/login';
+      }
 
       return Promise.reject(error);
     })

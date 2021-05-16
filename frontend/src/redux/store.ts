@@ -8,6 +8,7 @@ import {
 } from 'redux';
 import thunk, { ThunkAction } from 'redux-thunk';
 import user from './user';
+import lesson from './lesson';
 
 declare global {
   interface Window {
@@ -18,6 +19,7 @@ declare global {
 
 const reducers = combineReducers({
   user,
+  lesson,
 });
 
 type RootReducerType = typeof reducers;

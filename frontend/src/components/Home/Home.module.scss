@@ -1,0 +1,24 @@
+.home {
+    height: 100%;
+    padding-left: 50px;
+    padding-top: 50px;
+    display: flex;
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__start-lesson {
+        margin-left: 50px;
+        width: 400px;
+        height: 100px;
+    }
+
+    &__logout {
+        margin-left: 50px;
+        margin-top: 30px;
+        width: 400px;
+        height: 100px;
+    }
+}

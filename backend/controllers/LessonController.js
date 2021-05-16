@@ -14,7 +14,7 @@ class LessonController {
 
             const lessonDetails = await LessonService.getLessonDetails(createdLessonId, difficulty_level);
 
-            console.log(lessonDetails);
+            response.status(200).json(lessonDetails);
         } catch (error) {
             response.status(500).send('Server error!');
         }

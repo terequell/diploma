@@ -77,18 +77,17 @@ class AuthController {
 
     async refreshTokens(request, response) {
         try {
-            const { refreshToken } = response.data;
-
+            const { refreshToken } = request.body;
             const isRefreshTokenValid = AuthService.checkIsTokenValid(refreshToken);
 
             if (isRefreshTokenValid) {
                 const userId = AuthService.getUserIdFromToken(refreshToken);
-                const tokens = await AuthService.generateAndSaveTokens(userId);
+                const tokens = await AuthService.generateAndSaveTokens(userId); 
 
                 response.status(200).json({ statusCode: STATUS_CODES.OK, tokens });
+            } else {
+                response.status(403).send('Invalid refresh token!');
             }
-
-            response.status(403).send('Invalid refresh token!');
         } catch (error) {
             response.status(500).send('Server error!');
         }

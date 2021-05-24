@@ -49,7 +49,7 @@ create-dump:
 	@ if [ -f $(BACKUP_DB_NAME_LOCAL_PATH) ]; then \
 		rm $(BACKUP_DB_NAME_LOCAL_PATH); \
 	fi
-	@ docker exec -it $(DIPLOMA_MYSQL_CONTAINER) sh -c "mysqldump -uroot -proot $(DATABASE_NAME) > $(BACKUP_DB_NAME)"
+	@ docker exec -it $(DIPLOMA_MYSQL_CONTAINER) sh -c "mysqldump -R -uroot -proot $(DATABASE_NAME) > $(BACKUP_DB_NAME)"
 	@ docker cp $(DIPLOMA_MYSQL_CONTAINER):$(BACKUP_DB_NAME) $(BACKUP_DB_NAME_LOCAL_PATH)
 	@ scp $(BACKUP_DB_NAME_LOCAL_PATH) root@82.148.30.50:$(BACKUP_DB_NAME)
 	@ rm $(BACKUP_DB_NAME)

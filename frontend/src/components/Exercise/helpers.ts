@@ -9,42 +9,56 @@ export function getWordsForChoosing(
   exerciseType: ExerciseType,
 ): TypeWordForChoosing[] {
   if (exerciseType === ExerciseType.ENG_RUS) {
-    const wordsForChoosing = [currentWord.russian_wording];
+    const wordsForChoosing = [
+      { id: currentWord.id, text: currentWord.russian_wording },
+    ];
     const allWordsRussian = words
-      .filter((word) => word.russian_wording !== currentWord.russian_wording)
-      .map((word) => word.russian_wording);
+      .filter((word) => word.id !== currentWord.id)
+      .map((word) => ({ id: word.id, text: word.russian_wording }));
 
     while (wordsForChoosing.length !== 4) {
       const randomWord = getRandomItem(allWordsRussian);
 
-      if (!wordsForChoosing.includes(randomWord)) {
+      const wordAlreadyForChoosing = wordsForChoosing.find(
+        (word) => word.id === randomWord.id,
+      );
+
+      if (!wordAlreadyForChoosing) {
         wordsForChoosing.push(randomWord);
       }
     }
 
     return wordsForChoosing.map((word) => ({
-      word,
-      isRight: word === currentWord.russian_wording,
+      id: word.id,
+      text: word.text,
+      isRight: word.id === currentWord.id,
     }));
   }
 
   if (exerciseType === ExerciseType.RUS_ENG) {
-    const wordsForChoosing = [currentWord.english_wording];
+    const wordsForChoosing = [
+      { id: currentWord.id, text: currentWord.english_wording },
+    ];
     const allWordsEnglish = words
-      .filter((word) => word.english_wording !== currentWord.english_wording)
-      .map((word) => word.english_wording);
+      .filter((word) => word.id !== currentWord.id)
+      .map((word) => ({ id: word.id, text: word.english_wording }));
 
     while (wordsForChoosing.length !== 4) {
       const randomWord = getRandomItem(allWordsEnglish);
 
-      if (!wordsForChoosing.includes(randomWord)) {
+      const wordAlreadyForChoosing = wordsForChoosing.find(
+        (word) => word.id === randomWord.id,
+      );
+
+      if (!wordAlreadyForChoosing) {
         wordsForChoosing.push(randomWord);
       }
     }
 
     return wordsForChoosing.map((word) => ({
-      word,
-      isRight: word === currentWord.english_wording,
+      id: word.id,
+      text: word.text,
+      isRight: word.id === currentWord.id,
     }));
   }
 

@@ -38,6 +38,8 @@ type TypeInitialState = {
   email: string | null;
   difficulty_level: number | null;
   dateRegistration: string | null;
+  lessonsFinishedCount: number | null;
+  wordsLearnedCount: number | null;
   isLoading: boolean;
 };
 
@@ -47,6 +49,8 @@ const initialState: TypeInitialState = {
   difficulty_level: null,
   dateRegistration: null,
   isLoading: false,
+  lessonsFinishedCount: null,
+  wordsLearnedCount: null,
 };
 
 function userReducer(
@@ -67,6 +71,8 @@ function userReducer(
         email: action.userInfo.email,
         difficulty_level: action.userInfo.difficulty_level,
         username: action.userInfo.username,
+        lessonsFinishedCount: action.userInfo.lessonsFinishedCount,
+        wordsLearnedCount: action.userInfo.wordsLearnedCount,
       };
     }
     default:

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { StateType } from 'redux/store';
 import { getUserInfo } from 'redux/user';
-import { getLesson } from 'redux/lesson';
 import Loader from 'components/Loader';
+import { actions } from 'redux/lesson';
 import UserInfo from 'components/UserInfo';
 import { useAuth } from 'hooks';
 import { Button } from 'antd';
@@ -18,22 +18,31 @@ function Home(): JSX.Element {
   const { logout } = useAuth();
 
   const currentState = useSelector((state: StateType) => {
-    const { username, email, difficulty_level, dateRegistration } = state.user;
+    const {
+      username,
+      email,
+      difficulty_level,
+      dateRegistration,
+      lessonsFinishedCount,
+      wordsLearnedCount,
+    } = state.user;
 
     return {
       username,
       email,
       difficulty_level,
       dateRegistration,
+      lessonsFinishedCount,
+      wordsLearnedCount,
     };
   });
   const isLoading = useSelector((state: StateType) => state.user.isLoading);
 
   useEffect(() => {
     dispatch(getUserInfo());
+    dispatch(actions.resetLessonData());
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleClickStartLesson(): void {
     history.push('/lesson');
   }
@@ -46,7 +55,12 @@ function Home(): JSX.Element {
     }
   }
 
-  const { username, difficulty_level } = currentState;
+  const {
+    username,
+    difficulty_level,
+    lessonsFinishedCount,
+    wordsLearnedCount,
+  } = currentState;
 
   if (isLoading) {
     return <Loader />;
@@ -57,6 +71,8 @@ function Home(): JSX.Element {
       <UserInfo
         username={username || ''}
         difficulty_level={difficulty_level || 1}
+        lessonsFinishedCount={lessonsFinishedCount || 0}
+        wordsLearnedCount={wordsLearnedCount || 0}
       />
       <div className={styles['home__buttons']}>
         <Button

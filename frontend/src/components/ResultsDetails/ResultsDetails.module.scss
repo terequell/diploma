@@ -1,0 +1,36 @@
+.details {
+    &__title {
+        font-weight: 600;
+        font-size: 36px;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 50px;
+        padding-top: 20px;
+    }
+
+    &__table {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    &__button {
+        display: block;
+        width: 250px;
+        height: 82px;
+        border: none;
+        outline: none;
+        border-radius: 2px;
+        background-color: #1890FF;
+        margin: 0 auto;
+        margin-top: 44px;
+        color: #fff;
+        font-weight: 400;
+        font-size: 24px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #1974c9;
+        }
+    }
+}

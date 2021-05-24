@@ -7,8 +7,8 @@ export type TypeLesson = {
 };
 
 export type TypeLessonWord = {
+  id: number;
   russian_wording: string;
   english_wording: string;
   exercise_type: ExerciseType;
-  isRightAnswered: boolean | null;
 };

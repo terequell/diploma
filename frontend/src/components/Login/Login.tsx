@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, notification } from 'antd';
 import BackToHomeButton from 'components/BackToHomeButton';
 import { fieldsTranslations } from 'translations/fields';
 import { login } from 'data/authProvider';
@@ -13,7 +13,15 @@ function Login(): JSX.Element {
   const history = useHistory();
 
   async function handleSubmit(formData: TypeLoginForm): Promise<void> {
-    const { success } = await login(formData);
+    const { success, errorWording } = await login(formData);
+
+    if (errorWording) {
+      notification['error']({
+        message: 'Ошибка!',
+        description:
+          errorWording || `Что-то пошло не так... Попробуйте еще раз позднее.`,
+      });
+    }
 
     if (success) {
       history.push('/home');

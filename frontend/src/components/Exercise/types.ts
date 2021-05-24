@@ -1,4 +1,5 @@
 export type TypeWordForChoosing = {
-  word: string;
+  id: number;
+  text: string;
   isRight: boolean;
 };

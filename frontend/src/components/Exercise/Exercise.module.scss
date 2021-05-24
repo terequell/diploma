@@ -1,11 +1,63 @@
+@import '../../scss/fonts.scss';
+
 .exercise {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100%;
 
-    &__answers {
-        height: 400px;
+    &__header {
+        width: 750px;
+        margin-bottom: 45px;
     }
-}
 
-[class~='ant-col'] > div {
-    height: 150px;
+    &__counter {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 45px;
+        text-align: center;
+    }
+
+    &__question, &__word {
+        display: block;
+        text-align: center;
+    }
+
+    &__question {
+        font-size: 24px;
+        font-weight: 400;
+        margin-bottom: 25px;
+    }
+
+    &__word {
+        font-weight: 700;
+        font-size: 48px;
+    }
+
+    &__answers {
+        display: flex;
+        flex-wrap: wrap;
+        width: 750px;
+        justify-content: center;
+    }
+
+    &__answer {
+        font: 400 24px $mainFont;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        height: 100px;
+        background-color: #fff;
+        margin: 0px 30px 45px 30px;
+        margin-bottom: 45px;
+        border: 1px solid #D9D9D9;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(245, 238, 238);
+            box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        }
+    }
 }

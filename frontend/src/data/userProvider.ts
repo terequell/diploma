@@ -6,6 +6,8 @@ export type TypeUserDetailsRequestResult = {
   email: string;
   difficulty_level: number | null;
   dateRegistration: string;
+  lessonsFinishedCount: number;
+  wordsLearnedCount: number;
 };
 
 export async function getUserDetails(): Promise<TypeUserInfo | null> {

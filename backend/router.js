@@ -17,5 +17,6 @@ router.get(ROUTES.GET_USER_DETAILS, UserController.getUserDetails);
 router.post(ROUTES.UPDATE_WORDS_TABLE, WordController.__updateTable);
 
 router.post(ROUTES.CREATE_LESSON, LessonController.createLesson);
+router.post(ROUTES.FIHISH_LESSON, LessonController.finishLesson);
 
 export default router;

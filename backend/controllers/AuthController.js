@@ -8,7 +8,8 @@ const SALT_ROUNDS = 10;
 class AuthController {
     async register(request, response) {
         try {
-            const { username, password, email, difficulty_level } = request.body;
+            const { username, password, email } = request.body;
+            const difficulty_level = 1; // TODO: добавить какое нибудь начальное определение уровня.
             const isFieldsValid = checkRegisterFieldsValid({ username, password, email });
             const isUserAlreadyExists = Boolean(await AuthService.getUserByEmail(email));
 

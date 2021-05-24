@@ -7,3 +7,5 @@ export const EXERCISE_TYPES = {
     // ENG_PIC: 'ENG-PIC',
     // PIC_ENG: 'PIC-ENG',
 }
+
+export const WORDS_COUNT_FOR_UPGRADE_DIFFICULTY_LEVEL = 25;

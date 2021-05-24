@@ -6,6 +6,7 @@ export const ROUTES = {
     GET_USER_DETAILS: '/me',
     UPDATE_WORDS_TABLE: '/words/update',
     CREATE_LESSON: '/lesson/create',
+    FIHISH_LESSON: '/lesson/finish',
 };
 
 export const ROUTES_DONT_NEED_AUTH = [

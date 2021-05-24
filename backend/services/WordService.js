@@ -16,6 +16,18 @@ class WordService {
             [wordsRows]
         );
     }
+
+    async getWordsFullyLearned(userId) {
+        try {
+            const [wordsLearnedRes] = await pool.query('CALL get_fully_learned_words_by_user(?)', [userId]);
+            const [wordsLearned] = wordsLearnedRes;
+
+            return wordsLearned;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
 }
 
 export default new WordService();

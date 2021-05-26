@@ -126,16 +126,18 @@ function Home(): JSX.Element {
           Выход
         </Button>
       </div>
-      <div className={styles['home__learned-words']}>
-        <h1>Выученные слова</h1>
-        <Table
-          dataSource={getLearnedWordsTableData()}
-          columns={learnedWordsColumns}
-          className={styles['home__learned-table']}
-          pagination={false}
-          scroll={{ y: 500 }}
-        />
-      </div>
+      {wordsLearned.length > 0 && (
+        <div className={styles['home__learned-words']}>
+          <h1>Выученные слова</h1>
+          <Table
+            dataSource={getLearnedWordsTableData()}
+            columns={learnedWordsColumns}
+            className={styles['home__learned-table']}
+            pagination={false}
+            scroll={{ y: 500 }}
+          />
+        </div>
+      )}
     </div>
   );
 }

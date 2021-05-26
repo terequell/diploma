@@ -21,7 +21,12 @@ function UserInfo({
     <div>
       <Card title="Информация о пользователе">
         <div>Имя пользователя: {username}</div>
-        <div>Текущий уровень сложности: {difficulty_level}</div>
+        <Tooltip title={tooltipsTranslations.DIFFICULTY_LEVEL_TOOLTIP}>
+          <div>
+            Текущий уровень сложности: {difficulty_level}{' '}
+            <QuestionCircleOutlined />
+          </div>
+        </Tooltip>
         <div>Уроков завершено: {lessonsFinishedCount}</div>
         <Tooltip title={tooltipsTranslations.LEARNED_WORD_COUNT_TOOLTIP}>
           <div>

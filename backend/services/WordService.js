@@ -22,7 +22,15 @@ class WordService {
             const [wordsLearnedRes] = await pool.query('CALL get_fully_learned_words_by_user(?)', [userId]);
             const [wordsLearned] = wordsLearnedRes;
 
-            return wordsLearned;
+            if (Array.isArray(wordsLearned)) {
+                return wordsLearned.map((word) => ({ 
+                    russian_wording: word.russian_wording, 
+                    english_wording: word.english_wording, 
+                    difficulty_level: word.difficulty_level 
+                }));
+            }
+
+            return [];
         } catch (error) {
             console.error(error);
             return null;

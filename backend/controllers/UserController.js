@@ -15,7 +15,7 @@ class UserController {
                 response.status(200).json({ 
                     ...userDetails,
                     lessonsFinishedCount: lessonsFinishedCount,
-                    wordsLearnedCount: wordsLearned.length || 0
+                    wordsLearned,
                 });
             } else {
                 response.status(404).send('User info not found...');

@@ -7,9 +7,16 @@ import Loader from 'components/Loader';
 import { actions } from 'redux/lesson';
 import UserInfo from 'components/UserInfo';
 import { useAuth } from 'hooks';
-import { Button } from 'antd';
+import { Button, Table } from 'antd';
 import 'antd/dist/antd.css';
 import styles from './Home.module.scss';
+
+type TypeLearnedWordsTableData = {
+  key: string;
+  english_wording: string;
+  russian_wording: string;
+  difficulty_level: number;
+};
 
 function Home(): JSX.Element {
   const dispatch = useDispatch();
@@ -24,7 +31,7 @@ function Home(): JSX.Element {
       difficulty_level,
       dateRegistration,
       lessonsFinishedCount,
-      wordsLearnedCount,
+      wordsLearned,
     } = state.user;
 
     return {
@@ -33,7 +40,7 @@ function Home(): JSX.Element {
       difficulty_level,
       dateRegistration,
       lessonsFinishedCount,
-      wordsLearnedCount,
+      wordsLearned,
     };
   });
   const isLoading = useSelector((state: StateType) => state.user.isLoading);
@@ -59,8 +66,35 @@ function Home(): JSX.Element {
     username,
     difficulty_level,
     lessonsFinishedCount,
-    wordsLearnedCount,
+    wordsLearned,
   } = currentState;
+
+  const learnedWordsColumns = [
+    {
+      title: 'Английский перевод',
+      dataIndex: 'english_wording',
+      key: 'english_wording',
+    },
+    {
+      title: 'Русский перевод',
+      dataIndex: 'russian_wording',
+      key: 'russian_wording',
+    },
+    {
+      title: 'Уровень сложности',
+      dataIndex: 'difficulty_level',
+      key: 'difficulty_level',
+    },
+  ];
+
+  function getLearnedWordsTableData(): TypeLearnedWordsTableData[] {
+    return wordsLearned.map((word) => ({
+      key: word.english_wording,
+      english_wording: word.english_wording,
+      russian_wording: word.russian_wording,
+      difficulty_level: word.difficulty_level,
+    }));
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -72,7 +106,7 @@ function Home(): JSX.Element {
         username={username || ''}
         difficulty_level={difficulty_level || 1}
         lessonsFinishedCount={lessonsFinishedCount || 0}
-        wordsLearnedCount={wordsLearnedCount || 0}
+        wordsLearnedCount={wordsLearned.length}
       />
       <div className={styles['home__buttons']}>
         <Button
@@ -91,6 +125,16 @@ function Home(): JSX.Element {
         >
           Выход
         </Button>
+      </div>
+      <div className={styles['home__learned-words']}>
+        <h1>Выученные слова</h1>
+        <Table
+          dataSource={getLearnedWordsTableData()}
+          columns={learnedWordsColumns}
+          className={styles['home__learned-table']}
+          pagination={false}
+          scroll={{ y: 500 }}
+        />
       </div>
     </div>
   );

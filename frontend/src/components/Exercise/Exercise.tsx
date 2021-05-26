@@ -4,10 +4,15 @@ import React, { memo, useEffect, useState, useMemo } from 'react';
 import { TypeLessonWord } from 'types';
 import { ExerciseType } from 'constants/lesson';
 import lodash from 'lodash';
+import classnames from 'classnames';
+import { useCountdown } from './useCountdown';
 import { TypeWordForChoosing } from './types';
 import { getWordsForChoosing } from './helpers';
 import styles from './Exercise.module.scss';
 import 'antd/dist/antd.css';
+
+const TIME_FOR_EXERCISE_MS = 7000;
+const TIME_FOR_EXERCISE_S = TIME_FOR_EXERCISE_MS / 1000;
 
 type Props = {
   onAnswer: (answer: string, isRight: boolean, id: number) => void;
@@ -20,25 +25,30 @@ function Exercise(props: Props): JSX.Element {
   const [wordsForChoosing, setWordsForChoosing] = useState<
     TypeWordForChoosing[]
   >([]);
+  const { current: currentCountdown, resetCountdown } = useCountdown(
+    TIME_FOR_EXERCISE_S,
+  );
 
   useEffect(() => {
     const exerciseType = props.word.exercise_type;
 
     if (props.word) {
       setWordsForChoosing(
-        getWordsForChoosing(props.word, props.words, exerciseType),
+        lodash.shuffle(
+          getWordsForChoosing(props.word, props.words, exerciseType),
+        ),
       );
     }
   }, [props.word]);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(
-  //     () => props.onAnswer('', false, props.word.id),
-  //     5000,
-  //   );
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      props.onAnswer('', false, props.word.id);
+      resetCountdown();
+    }, TIME_FOR_EXERCISE_MS);
 
-  //   return () => clearTimeout(timeout);
-  // }, [props.word]);
+    return () => clearTimeout(timeout);
+  }, [props.word]);
 
   function getWordQuestion(): string {
     const { exercise_type } = props.word;
@@ -56,6 +66,7 @@ function Exercise(props: Props): JSX.Element {
   function handleChooseAnswer(answer: string, isRight: boolean): () => void {
     return () => {
       props.onAnswer(answer, isRight, props.word.id);
+      resetCountdown();
     };
   }
 
@@ -69,6 +80,14 @@ function Exercise(props: Props): JSX.Element {
         <div className={styles['exercise__counter']}>
           Слово {wordNumber}/{totalWords}
         </div>
+        <span
+          className={classnames(
+            styles['exercise__countdown'],
+            styles[`exercise__countdown-${currentCountdown}`],
+          )}
+        >
+          {currentCountdown}
+        </span>
         <div className={styles['exercise__title']}>
           <span className={styles['exercise__question']}>
             Выберите правильный перевод слова
@@ -77,7 +96,7 @@ function Exercise(props: Props): JSX.Element {
         </div>
       </div>
       <div className={styles['exercise__answers']}>
-        {lodash.shuffle(wordsForChoosing).map((word) => (
+        {wordsForChoosing.map((word) => (
           <div
             key={word.text}
             className={styles['exercise__answer']}

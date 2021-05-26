@@ -3,6 +3,7 @@
     padding-left: 50px;
     padding-top: 50px;
     display: flex;
+    justify-content: space-around;
 
     &__buttons {
         display: flex;
@@ -20,5 +21,13 @@
         margin-top: 30px;
         width: 400px;
         height: 100px;
+    }
+
+    &__learned-words {
+        margin-left: 50px;
+    }
+
+    &__learned-table {
+        max-width: 400px;
     }
 }

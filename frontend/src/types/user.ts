@@ -4,5 +4,11 @@ export type TypeUserInfo = {
   difficulty_level: number | null;
   dateRegistration: string;
   lessonsFinishedCount: number;
-  wordsLearnedCount: number;
+  wordsLearned: TypeWordLearned[];
+};
+
+export type TypeWordLearned = {
+  russian_wording: string;
+  english_wording: string;
+  difficulty_level: number;
 };

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import { getUserDetails } from 'data/userProvider';
-import { TypeUserInfo } from 'types';
+import { TypeUserInfo, TypeWordLearned } from 'types';
 import { BaseThunkType, InferActionsTypes } from './store';
 
 type ActionsType = ReturnType<InferActionsTypes<typeof actions>>;
@@ -39,7 +39,7 @@ type TypeInitialState = {
   difficulty_level: number | null;
   dateRegistration: string | null;
   lessonsFinishedCount: number | null;
-  wordsLearnedCount: number | null;
+  wordsLearned: TypeWordLearned[];
   isLoading: boolean;
 };
 
@@ -50,7 +50,7 @@ const initialState: TypeInitialState = {
   dateRegistration: null,
   isLoading: false,
   lessonsFinishedCount: null,
-  wordsLearnedCount: null,
+  wordsLearned: [],
 };
 
 function userReducer(
@@ -72,7 +72,7 @@ function userReducer(
         difficulty_level: action.userInfo.difficulty_level,
         username: action.userInfo.username,
         lessonsFinishedCount: action.userInfo.lessonsFinishedCount,
-        wordsLearnedCount: action.userInfo.wordsLearnedCount,
+        wordsLearned: action.userInfo.wordsLearned,
       };
     }
     default:

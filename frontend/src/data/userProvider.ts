@@ -1,5 +1,5 @@
 import axios from 'helpers/axios';
-import { TypeUserInfo } from 'types';
+import { TypeUserInfo, TypeWordLearned } from 'types';
 
 export type TypeUserDetailsRequestResult = {
   username: string;
@@ -7,7 +7,7 @@ export type TypeUserDetailsRequestResult = {
   difficulty_level: number | null;
   dateRegistration: string;
   lessonsFinishedCount: number;
-  wordsLearnedCount: number;
+  wordsLearned: TypeWordLearned[];
 };
 
 export async function getUserDetails(): Promise<TypeUserInfo | null> {

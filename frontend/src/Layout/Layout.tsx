@@ -48,6 +48,7 @@ function Layout(): JSX.Element {
         })}
       >
         <div
+          style={{ height: '100%' }}
           className={classNames({
             [styles['content__container']]: !PATHS_WITHOUT_LAYOUT.includes(
               location.pathname,

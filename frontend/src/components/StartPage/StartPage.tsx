@@ -7,6 +7,9 @@ import styles from './StartPage.module.scss';
 function StartPage(): JSX.Element {
   return (
     <div className={styles['home__container']}>
+      <h1 className={styles['home__title']}>
+        Веб-приложение для тренировки английских слов.
+      </h1>
       <Button className={styles['home__button']}>
         <NavLink to="/login">Войти</NavLink>
       </Button>

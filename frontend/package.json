@@ -16,6 +16,7 @@
     "antd": "^4.13.1",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "cypress": "^7.5.0",
     "lodash": "^4.17.21",
     "node-sass": "^5.0.0",
     "normalize.css": "^8.0.1",
@@ -30,7 +31,8 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [

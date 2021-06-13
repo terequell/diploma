@@ -31,6 +31,7 @@ function Registration(): JSX.Element {
         message: 'Ошибка!',
         description:
           errorWording || `Что-то пошло не так... Попробуйте еще раз позднее.`,
+        className: 'cy-notification_user-exists',
       });
     }
   }
@@ -46,6 +47,7 @@ function Registration(): JSX.Element {
             rules={[
               { required: true, message: fieldsTranslations.usernameWarning },
             ]}
+            className="cy-register_username"
           >
             <Input />
           </Form.Item>
@@ -59,6 +61,7 @@ function Registration(): JSX.Element {
                 message: fieldsTranslations.emailWarning,
               },
             ]}
+            className="cy-register_email"
           >
             <Input />
           </Form.Item>
@@ -68,11 +71,16 @@ function Registration(): JSX.Element {
             rules={[
               { required: true, message: fieldsTranslations.passwordWarning },
             ]}
+            className="cy-register_password"
           >
             <Input.Password />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="cy-register_button"
+            >
               Зарегистрироваться
             </Button>
           </Form.Item>

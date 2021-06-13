@@ -20,6 +20,7 @@ function Login(): JSX.Element {
         message: 'Ошибка!',
         description:
           errorWording || `Что-то пошло не так... Попробуйте еще раз позднее.`,
+        className: 'cy-notification',
       });
     }
 
@@ -34,6 +35,7 @@ function Login(): JSX.Element {
       <div className={styles['login__container']}>
         <Form labelCol={{ span: 4 }} form={form} onFinish={handleSubmit}>
           <Form.Item
+            className="cy-login_email"
             name="email"
             label={fieldsTranslations.emailLabel}
             rules={[
@@ -47,6 +49,7 @@ function Login(): JSX.Element {
             <Input />
           </Form.Item>
           <Form.Item
+            className="cy-login_password"
             name="password"
             label={fieldsTranslations.passwordLabel}
             rules={[
@@ -56,7 +59,11 @@ function Login(): JSX.Element {
             <Input.Password />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="cy-login_button"
+            >
               Войти
             </Button>
           </Form.Item>

@@ -13,9 +13,15 @@
         border-radius: 20px;
         font-size: 26px;
         margin-top: 30px;
+
+        @media screen and (min-width: 320px) and (max-width: 530px) {
+            width: 300px;
+            font-size: 20px;
+        }
     }
 
     &__title {
+        text-align: center;
         font-size: 42px;
     }
 }

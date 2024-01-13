@@ -10,7 +10,7 @@ You can deploy application in Docker with some bash scripts i wrote in Makefile.
 3) in different tab - make frontend (it launchs service in watch mode)
 
 I implemented DB backup to remote server when i actively was developing the project.
-Unfotnunately, i lost the DB dump, but if you're interested, i can try to searh it in my disk.
+Unfortunately, i lost the DB dump, but if you're interested, i can try to searh it in my disk.
 
 _________________________________________________________________________
 

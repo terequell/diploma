@@ -1,3 +1,19 @@
+Bachelor's degree diploma "Web-application for learning english words".
+
+Frontend: React + TypeScript, Axios, Antd.
+
+Backend: JavaScript + Express, mysql2.
+
+You can deploy application in Docker with some bash scripts i wrote in Makefile. Last time app was deployed using Docker v20.10.3. Order of make commands:
+1) make start
+2) in different tab - make backend (it launchs service in watch mode)
+3) in different tab - make frontend (it launchs service in watch mode)
+
+I implemented DB backup to remote server when i actively was developing the project.
+Unfotnunately, i lost the DB dump, but if you're interested, i can try to searh it in my disk.
+
+_________________________________________________________________________
+
 Код дипломной работы - "Веб-приложение для изучения английских слов".
 
 Фронт написан на React + TypeScript, для запросов используется axios. Некоторые компоненты брались из AntDesign.
